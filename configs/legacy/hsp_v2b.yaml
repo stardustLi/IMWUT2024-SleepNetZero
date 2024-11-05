@@ -1,0 +1,17 @@
+PAD_STAGE: -1
+data:
+  _name: data.sleep_staging.SleepStagingDataModule
+  dataset:
+    _name: data.sleep_staging.SleepStagingDataset
+    max_len: 1536
+    train:
+      index: ${HSP_V2B}/train.csv
+    val:
+      index: ${HSP_V2B}/val.csv
+    test:
+      index: ${HSP_V2B}/test.csv
+  dataloader:
+    batch_size: ${BATCH_SIZE}
+    num_workers: ${NUM_WORKERS}
+    train:
+      shuffle: true

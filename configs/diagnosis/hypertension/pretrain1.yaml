@@ -1,0 +1,25 @@
+_base:
+  - configs/diagnosis/base.yaml
+project: hypertension-diagnosis
+data:
+  common:
+    index: index/diagnosis/hypertension.csv
+    max_tokens: 120
+    stride_tokens: 10
+    batch_size: 512
+    num_workers: 64
+task:
+  model:
+    _name: models.diagnosis.DiagnosisNet
+    pretrain_task: tasks.sleep_staging.SleepStagingTask
+    pretrained: pretrained/sleep_staging_exp1a-42.ckpt
+  criterion:
+    pos_weight: [12.]
+  optimizer:
+    _name: torch.optim.Adam
+    lr: 1.e-5
+trainer:
+  precision: 16-mixed
+  val_check_interval: 0.25
+
+PATIENCE: 10

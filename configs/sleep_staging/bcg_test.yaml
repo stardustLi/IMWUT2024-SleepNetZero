@@ -1,0 +1,13 @@
+project: SleepNetZero
+job_type: bcg_test
+_base:
+  - configs/env.yaml
+  - configs/sleep_staging/data/bcg.yaml
+BATCH_SIZE: 16
+NUM_WORKERS: 16
+task:
+  _name: tasks.sleep_staging.SleepStagingTask
+  test_group: bcg_test
+callbacks:
+  - _name: lightning.pytorch.callbacks.RichProgressBar
+    leave: True

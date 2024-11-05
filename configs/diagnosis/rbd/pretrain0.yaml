@@ -1,0 +1,26 @@
+_base:
+  - configs/diagnosis/base.yaml
+project: rbd-diagnosis
+data:
+  common:
+    index: index/diagnosis/rbd.csv
+    max_tokens: 480
+    stride_tokens: 480
+    batch_size: 64
+    num_workers: 64
+  train:
+    stride_tokens: 40
+task:
+  model:
+    _name: models.diagnosis.DiagnosisNet
+    pretrain_task: tasks.sleep_staging.SleepStagingTask
+    pretrained: pretrained/sleep_staging_exp-42.ckpt
+  criterion:
+    pos_weight: [20.]
+  optimizer:
+    _name: torch.optim.Adam
+    lr: 0.0001
+trainer:
+  precision: 16-mixed
+
+PATIENCE: 10

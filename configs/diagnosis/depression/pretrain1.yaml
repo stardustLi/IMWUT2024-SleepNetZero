@@ -1,0 +1,27 @@
+_base:
+  - configs/diagnosis/base.yaml
+project: depression-diagnosis
+data:
+  common:
+    index: index/diagnosis/shaoyifu_990.csv
+    label: 抑郁
+    max_tokens: 120
+    stride_tokens: 120
+    batch_size: 64
+    num_workers: 64
+  train:
+    stride_tokens: 10
+task:
+  model:
+    _name: models.diagnosis.DiagnosisNet
+    pretrain_task: tasks.sleep_staging.SleepStagingTask
+    pretrained: pretrained/sleep_staging_exp1a-42.ckpt
+  criterion:
+    pos_weight: [3.]
+  optimizer:
+    _name: torch.optim.Adam
+    lr: 0.0001
+trainer:
+  precision: 16-mixed
+
+PATIENCE: 10

@@ -1,0 +1,12 @@
+filter:
+  - _name: has_channel
+    channel:
+      - heartbeat
+      - breath
+      - body_movement
+      - stage
+      - start_sec
+  - _name: bcg.has_signal
+info:
+  length:
+    _name: duration

@@ -1,0 +1,21 @@
+_base:
+  - configs/diagnosis/base.yaml
+  - configs/diagnosis/small-model.yaml
+project: diabetes-diagnosis
+data:
+  common:
+    index: index/diagnosis/diabetes.csv
+    max_tokens: 120
+    stride_tokens: 10
+    batch_size: 64
+    num_workers: 64
+task:
+  criterion:
+    pos_weight: [12.]
+  optimizer:
+    _name: torch.optim.Adam
+    lr: 0.0001
+trainer:
+  precision: 16-mixed
+
+PATIENCE: 10

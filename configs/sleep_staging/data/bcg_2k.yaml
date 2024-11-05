@@ -1,0 +1,10 @@
+PAD_STAGE: -1
+data:
+  _name: wuji_dl.data.DefaultDataModule
+  common:
+    _name: data.sleep_staging.SleepStagingDataset
+    max_len: 1536
+    batch_size: ${BATCH_SIZE}
+    num_workers: ${NUM_WORKERS}
+  test:
+    index: ${BCG_2K_A}/test.csv

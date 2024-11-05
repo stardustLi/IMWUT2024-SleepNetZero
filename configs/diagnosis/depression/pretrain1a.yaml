@@ -1,0 +1,13 @@
+_base:
+  - configs/diagnosis/depression/pretrain1.yaml
+task:
+  lr_scheduler:
+    scheduler:
+      _name: pl_bolts.optimizers.LinearWarmupCosineAnnealingLR
+      warmup_epochs: 6000
+      max_epochs: 20000
+      eta_min: 1.e-5
+    interval: step
+trainer:
+  precision: 16-mixed
+  gradient_clip_val: 0.1

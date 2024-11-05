@@ -1,0 +1,14 @@
+project: sleep-staging
+_base:
+  - configs/sleep_staging/base.yaml
+  - configs/sleep_staging/model.yaml
+data:
+  common:
+    batch_size: 16
+    num_workers: 16
+task:
+  optimizer:
+    _name: torch.optim.Adam
+    lr: 0.0001
+
+PATIENCE: 10

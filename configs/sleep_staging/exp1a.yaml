@@ -1,0 +1,5 @@
+_base:
+  - configs/sleep_staging/exp.yaml
+task:
+  model:
+    heads: ["heartbeat", "breath"]

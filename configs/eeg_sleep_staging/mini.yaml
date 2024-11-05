@@ -1,0 +1,49 @@
+project: eeg-sleep-staging
+data:
+  _name: wuji_dl.data.DefaultDataModule
+  common:
+    _name: data.sleep_staging.EEGSleepStagingDataset
+    index: index/sleep_staging/hsp_v3.csv
+    max_tokens: 1535
+    batch_size: 64
+    num_workers: 64
+  train:
+    split: train
+    shuffle: true
+  val:
+    split: val
+  test:
+    split: test
+task:
+  _name: tasks.sleep_staging.SleepStagingTask
+  model:
+    _name: models.eeg_sleep_staging.EEGSleepStagingNet
+    embedding_size: 1042
+    hidden_size: 256
+    num_hidden_layers: 4
+    num_attention_heads: 8
+    intermediate_size: 1024
+  criterion:
+    _name: wuji_dl.ops.CrossEntropyLoss
+    ignore_index: -1
+  optimizer:
+    _name: torch.optim.Adam
+    lr: 0.0001
+callbacks:
+  ckpt_best:
+    _name: lightning.pytorch.callbacks.ModelCheckpoint
+    monitor: val/cohen_kappa
+    mode: max
+    save_weights_only: True
+  early_stopping:
+    _name: lightning.pytorch.callbacks.EarlyStopping
+    monitor: val/cohen_kappa
+    mode: max
+    patience: 10
+  pbar:
+    _name: lightning.pytorch.callbacks.RichProgressBar
+    leave: True
+trainer:
+  log_every_n_steps: 10
+  max_epochs: 100
+  precision: bf16-mixed

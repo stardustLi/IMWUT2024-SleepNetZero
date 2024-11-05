@@ -1,0 +1,4 @@
+_base:
+  - configs/diagnosis/depression/pretrain1a.yaml
+trainer:
+  gradient_clip_val: 0.01

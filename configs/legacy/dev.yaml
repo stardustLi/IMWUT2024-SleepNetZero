@@ -1,0 +1,53 @@
+project: SleepNetZero
+group: 20240516b
+_base:
+  - configs/env.yaml
+task:
+  _name: tasks.sleep_staging.SleepStagingTask
+  model:
+    _name: models.v1.SleepNetZeroV1
+    vocab_size: 1
+    hidden_size: 512
+    num_hidden_layers: 3
+    num_attention_heads: 4
+    intermediate_size: 512
+  criterion:
+    _name: losses.sleep_staging.CrossEntropyWrapper
+    # weight: [5.425662993161182, 1.7776692614361935, 8.064069085081018, 7.74296359794168]
+    # smoothing: 0.1
+  optimizer:
+    _name: torch.optim.AdamW
+    lr: 0.00001
+data:
+  _name: data.sleep_staging.SleepStagingDataModule
+  dataset:
+    _name: data.sleep_staging.SleepStagingDataset
+    max_len: 1536
+    train:
+      index: ${HSP_V2A}/train.csv
+    val:
+      index: ${HSP_V2A}/val.csv
+    test:
+      index: ${HSP_V2A}/test.csv
+  dataloader:
+    batch_size: 42
+    num_workers: 32
+    train:
+      shuffle: true
+callbacks:
+  ckpt_best:
+    _name: lightning.pytorch.callbacks.ModelCheckpoint
+    monitor: val/cohen_kappa
+    mode: max
+    save_weights_only: True
+  early_stopping:
+    _name: lightning.pytorch.callbacks.EarlyStopping
+    monitor: val/cohen_kappa
+    mode: max
+    patience: 10
+  pbar:
+    _name: lightning.pytorch.callbacks.RichProgressBar
+    leave: True
+trainer:
+  max_steps: 2000000
+  log_every_n_steps: 10

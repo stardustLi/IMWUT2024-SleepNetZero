@@ -1,0 +1,9 @@
+__pycache__
+.vscode
+scripts
+env.yaml
+log
+pretrained
+*.csv
+results
+wandb

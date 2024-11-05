@@ -1,0 +1,22 @@
+heartbeat:
+  _name: sleep_net_zero.heartbeat
+  path: bcg_feature_jji.npz
+  fs: 4.
+breath:
+  _name: sleep_net_zero.breath
+  path: bcg_feature_respiration_for_AI.npz
+  fs: 4.
+  do_filter: False
+body_movement:
+  _name: sleep_net_zero.body_movement
+  path: bcg_quality_dynamic_energy.npz
+  fs: 4.
+  criterion: ">5"
+stage:
+  _name: stage
+  path: standard_sleep_stages.csv
+start_sec:
+  _name: start_second
+  path: recording_start_time.txt
+duration:
+  _name: duration

@@ -1,0 +1,18 @@
+project: sleep-staging
+job_type: bcg_2k_test
+data:
+  _name: wuji_dl.data.DefaultDataModule
+  common:
+    _name: data.sleep_staging.SleepStagingDataset
+    index: index/sleep_staging/bcg_2k_206.csv
+    max_tokens: 1535
+    batch_size: 16
+    num_workers: 16
+  test:
+    split: test
+task:
+  _name: tasks.sleep_staging.SleepStagingTask
+  test_group: bcg_2k_test
+callbacks:
+  - _name: lightning.pytorch.callbacks.RichProgressBar
+    leave: True

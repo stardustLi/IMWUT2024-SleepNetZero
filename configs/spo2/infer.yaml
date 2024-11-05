@@ -1,0 +1,26 @@
+_base:
+  - configs/spo2/base.yaml
+  - configs/spo2/model-small.yaml
+data:
+  common:
+    batch_size: 64
+    num_workers: 32
+task:
+  optimizer:
+    _name: torch.optim.AdamW
+    lr: 0.0008
+  criterion:
+    _name: losses.wasserstein_pearson_loss.WassersteinPearsonLoss
+    pearson_weight: 0.1
+
+
+PATIENCE: 10
+
+input_sample: 
+  heartbeat: torch.randn(1, 184200)
+  breath: torch.randn(1, 184200)
+  body_movement: torch.randn(1, 184200)
+  length: torch.tensor([1])
+
+output_names:
+  - spo2

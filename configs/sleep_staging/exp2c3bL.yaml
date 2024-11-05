@@ -1,0 +1,11 @@
+_base:
+  - configs/sleep_staging/exp.yaml
+data:
+  common:
+    batch_size: 32
+    num_workers: 32
+task:
+  optimizer:
+    lr: 2.e-4
+trainer:
+  precision: bf16-mixed

@@ -1,0 +1,12 @@
+_base:
+  - configs/eeg_power_distribution/beta.yaml
+task:
+  lr_scheduler:
+    scheduler:
+      _name: torch.optim.lr_scheduler.CosineAnnealingLR
+      T_max: 20000
+      eta_min: 1.0e-5
+    interval: step
+callbacks:
+  lr_monitor:
+    _name: lightning.pytorch.callbacks.LearningRateMonitor

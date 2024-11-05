@@ -1,0 +1,4 @@
+_base:
+  - configs/sleep_staging/exp.yaml
+trainer:
+  precision: 16-mixed

@@ -1,0 +1,13 @@
+- _name: clinical_csv_loader
+  src_root: /local_data/preprocessed/guangzhou_206
+  index_path: /local_data/clinical_data/guangzhou_206.csv
+- _name: npz_reader
+  check: ["heartbeat", "breath", "body_movement"]
+  load: duration
+- _name: subject_splitter
+  _in_column: ID
+  train: 0.8
+  val: 0.1
+  test: 0.1
+- _name: saver
+  dst_path: ./guangzhou_206.csv

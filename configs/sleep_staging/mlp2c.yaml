@@ -1,0 +1,5 @@
+_base:
+  - configs/sleep_staging/mlp.yaml
+task:
+  optimizer:
+    lr: 2.e-4

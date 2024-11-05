@@ -1,0 +1,4 @@
+_base:
+  - configs/sleep_staging/ep_base.yaml
+group: ep_beta3
+PRETRAINED: pretrained/eeg_norm_power_beta3.ckpt

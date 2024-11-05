@@ -1,0 +1,9 @@
+_base:
+  - configs/sleep_staging/ep_base.yaml
+group: ep_beta3b_wd0.1
+PRETRAINED: pretrained/eeg_norm_power_beta3.ckpt
+task:
+  optimizer:
+    _name: torch.optim.AdamW
+    lr: 0.0001
+    weight_decay: 0.1

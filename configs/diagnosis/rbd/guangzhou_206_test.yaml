@@ -1,0 +1,17 @@
+_base:
+  - configs/diagnosis/base.yaml
+project: rbd-diagnosis
+data:
+  common:
+    index: index/diagnosis/guangzhou_206.csv
+    label: RBD
+    max_tokens: 480
+    stride_tokens: 480
+    batch_size: 64
+    num_workers: 64
+task:
+  results_dir: results/rbd/guangzhou_206_test
+trainer:
+  precision: 16-mixed
+
+PATIENCE: 10

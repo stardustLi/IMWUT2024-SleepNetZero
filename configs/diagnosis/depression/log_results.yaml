@@ -1,0 +1,14 @@
+_base:
+  - configs/diagnosis/base.yaml
+project: depression-diagnosis
+data:
+  common:
+    index: index/diagnosis/抑郁.csv
+    max_tokens: 120
+    stride_tokens: 120
+    batch_size: 64
+    num_workers: 64
+task:
+  results_dir: results/depression
+
+PATIENCE: 10

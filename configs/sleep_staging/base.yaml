@@ -1,0 +1,35 @@
+data:
+  _name: wuji_dl.data.DefaultDataModule
+  common:
+    _name: data.sleep_staging.SleepStagingDataset
+    index: index/sleep_staging/hsp_v3.csv
+    max_tokens: 1535
+  train:
+    split: train
+    shuffle: true
+  val:
+    split: val
+  test:
+    split: test
+task:
+  _name: tasks.sleep_staging.SleepStagingTask
+  criterion:
+    _name: wuji_dl.ops.CrossEntropyLoss
+    ignore_index: -1
+callbacks:
+  ckpt_best:
+    _name: lightning.pytorch.callbacks.ModelCheckpoint
+    monitor: val/cohen_kappa
+    mode: max
+    save_weights_only: True
+  early_stopping:
+    _name: lightning.pytorch.callbacks.EarlyStopping
+    monitor: val/cohen_kappa
+    mode: max
+    patience: ${PATIENCE}
+  pbar:
+    _name: lightning.pytorch.callbacks.RichProgressBar
+    leave: True
+trainer:
+  log_every_n_steps: 10
+  max_epochs: 100

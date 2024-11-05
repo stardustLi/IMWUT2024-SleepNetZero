@@ -1,0 +1,17 @@
+_base:
+  - configs/diagnosis/base.yaml
+project: depression-diagnosis
+data:
+  common:
+    index: index/diagnosis/shaoyifu_990.csv
+    label: 抑郁
+    max_tokens: 120
+    stride_tokens: 10
+    batch_size: 512
+    num_workers: 64
+task:
+  results_dir: results/depression/shaoyifu_990_test
+trainer:
+  precision: 16-mixed
+
+PATIENCE: 10

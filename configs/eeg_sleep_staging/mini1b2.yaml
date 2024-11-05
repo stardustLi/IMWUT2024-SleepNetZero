@@ -1,0 +1,6 @@
+_base: configs/eeg_sleep_staging/mini.yaml
+task:
+  model:
+    log_transform: True
+  optimizer:
+    lr: 0.0004

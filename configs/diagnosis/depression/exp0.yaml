@@ -1,0 +1,25 @@
+_base:
+  - configs/diagnosis/base.yaml
+  - configs/diagnosis/model.yaml
+project: depression-diagnosis
+data:
+  common:
+    index: index/diagnosis/抑郁.csv
+    max_tokens: 120
+    stride_tokens: 120
+    batch_size: 64
+    num_workers: 64
+  train:
+    stride_tokens: 10
+task:
+  model:
+    heads: ["heartbeat", "breath"]
+  criterion:
+    pos_weight: [16.]
+  optimizer:
+    _name: torch.optim.Adam
+    lr: 0.0001
+trainer:
+  precision: 16-mixed
+
+PATIENCE: 10

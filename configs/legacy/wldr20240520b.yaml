@@ -1,0 +1,36 @@
+project: SleepNetZero
+group: wldr20240520b
+_base:
+  - configs/env.yaml
+  - configs/data/hsp_v2b.yaml
+  - configs/sleep_staging/base.yaml
+BATCH_SIZE: 42
+NUM_WORKERS: 32
+PATIENCE: 10
+task:
+  _name: tasks.sleep_staging.SleepStagingTask
+  model:
+    _name: models.sleep_staging.SleepNetZeroV1
+    num_classes: 4
+    vocab_size: 1
+    hidden_size: 512
+    num_hidden_layers: 3
+    num_attention_heads: 4
+    intermediate_size: 512
+  criterion:
+    _name: losses.FocalLoss
+    ignore_index: ${PAD_STAGE}
+    weight:
+      [
+        5.425662993161182,
+        1.7776692614361935,
+        8.064069085081018,
+        7.74296359794168,
+      ]
+    label_smoothing: 0.1
+  optimizer:
+    _name: torch.optim.Adam
+    lr: 0.0001
+  stages: [W, L, D, R]
+trainer:
+  max_epochs: 100

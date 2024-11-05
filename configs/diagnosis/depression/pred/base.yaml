@@ -1,0 +1,17 @@
+_base:
+  - configs/diagnosis/base.yaml
+project: depression-diagnosis
+data:
+  common:
+    _name: data.diagnosis.AppDiagnosisDataset
+    index: index/diagnosis/${NAME}.csv
+    max_tokens: 120
+    stride_tokens: 10
+    batch_size: 512
+    num_workers: 64
+task:
+  results_dir: results/depression/${NAME}_pred
+trainer:
+  precision: 16-mixed
+
+PATIENCE: 10

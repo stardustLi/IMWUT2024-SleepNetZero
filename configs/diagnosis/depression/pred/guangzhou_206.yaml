@@ -1,0 +1,3 @@
+_base:
+  - configs/diagnosis/pred/base.yaml
+NAME: guangzhou_206

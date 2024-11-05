@@ -1,0 +1,21 @@
+project: SleepNetZero
+_base:
+  - configs/env.yaml
+  - configs/sleep_staging/data/hsp_v2a.yaml
+  - configs/sleep_staging/base.yaml
+BATCH_SIZE: 16
+NUM_WORKERS: 16
+PATIENCE: 10
+task:
+  _name: tasks.sleep_staging.SleepStagingTask
+  model:
+    _name: models.sleep_staging_from_eeg_power.SleepNetZeroFromEEGPower
+    pretrained: ${PRETRAINED}
+  criterion:
+    _name: wuji_dl.ops.CrossEntropyLoss
+    ignore_index: ${PAD_STAGE}
+  optimizer:
+    _name: torch.optim.Adam
+    lr: 0.0001
+trainer:
+  max_epochs: 100

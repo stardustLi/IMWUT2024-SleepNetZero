@@ -1,0 +1,35 @@
+project: eeg-power-distribution
+data:
+  _name: wuji_dl.data.DefaultDataModule
+  common:
+    _name: data.eeg_power_distribution.EEGPowerDistributionDataset
+    index: index/eeg_power_distribution/hsp_v3.csv
+    max_tokens: 1535
+  train:
+    shuffle: True
+    split: train
+  val:
+    split: val
+  test:
+    split: test
+task:
+  _name: tasks.eeg_power_distribution.EEGPowerDistributionTask
+  criterion:
+    _name: losses.WassersteinLoss
+callbacks:
+  ckpt_best:
+    _name: lightning.pytorch.callbacks.ModelCheckpoint
+    monitor: val/loss
+    mode: min
+    save_weights_only: True
+  early_stopping:
+    _name: lightning.pytorch.callbacks.EarlyStopping
+    monitor: val/loss
+    mode: min
+    patience: ${PATIENCE}
+  pbar:
+    _name: lightning.pytorch.callbacks.RichProgressBar
+    leave: True
+trainer:
+  log_every_n_steps: 10
+  max_epochs: 100

@@ -1,0 +1,11 @@
+- _name: hsp_collector
+  src_root: /local_data/preprocessed/hsp_v3
+- _name: subject_splitter
+  train: 0.8
+  val: 0.1
+  test: 0.1
+- _name: npz_reader
+  check: ["heartbeat", "breath", "body_movement", "stage"]
+  load: duration
+- _name: saver
+  dst_path: ./hsp_v3.csv

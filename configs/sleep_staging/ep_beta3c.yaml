@@ -1,0 +1,7 @@
+_base:
+  - configs/sleep_staging/ep_base.yaml
+group: ep_beta3c_lr1e-5
+PRETRAINED: pretrained/eeg_norm_power_beta3.ckpt
+task:
+  optimizer:
+    lr: 0.00001

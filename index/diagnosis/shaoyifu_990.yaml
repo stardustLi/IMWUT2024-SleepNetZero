@@ -1,0 +1,12 @@
+- _name: clinical_csv_loader
+  src_root: /local_data/preprocessed/shaoyifu_990
+  index_path: /local_data/clinical_data/shaoyifu_990.csv
+- _name: npz_reader
+  check: ["heartbeat", "breath", "body_movement"]
+  load: duration
+- _name: subject_splitter
+  train: 0.8
+  val: 0.1
+  test: 0.1
+- _name: saver
+  dst_path: ./shaoyifu_990.csv

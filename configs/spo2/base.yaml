@@ -1,0 +1,37 @@
+project: spo2_for_release
+data:
+  _name: wuji_dl.data.DefaultDataModule
+  common:
+    _name: data.spo2.Spo2Dataset
+    index: index/spo2/hsp.csv
+    max_tokens: 1535
+  train:
+    shuffle: True
+    split: train
+  val:
+    split: val
+  test:
+    split: test
+task:
+  _name: tasks.spo2.Spo2Task
+  criterion:
+    _name: losses.wasserstein_w_nan.WassersteinLoss # losses.power_loss.PowerLoss # losses.MSELossWrapper # losses.zscored_mse.ZscoredMSE # losses.MSELossWrapper # losses.pearson_loss.PearsonCorrelation
+    # seq_length: 60
+callbacks:
+  ckpt_best:
+    _name: lightning.pytorch.callbacks.ModelCheckpoint
+    monitor: val/f1
+    mode: max
+    save_weights_only: True
+  early_stopping:
+    _name: lightning.pytorch.callbacks.EarlyStopping
+    monitor: val/f1
+    mode: max
+    patience: ${PATIENCE}
+  pbar:
+    _name: lightning.pytorch.callbacks.RichProgressBar
+    leave: True
+trainer:
+  log_every_n_steps: 10
+  max_epochs: 100
+  precision: bf16-mixed

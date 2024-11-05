@@ -1,0 +1,20 @@
+_base:
+  - configs/diagnosis/base.yaml
+  - configs/diagnosis/small-model.yaml
+project: drink
+data:
+  common:
+    index: index/diagnosis/shanghai_7988.csv
+    label: drink
+    max_tokens: 120
+    stride_tokens: 10
+    batch_size: 512
+    num_workers: 64
+task:
+  optimizer:
+    _name: torch.optim.Adam
+    lr: 1.e-5
+trainer:
+  precision: 16-mixed
+
+PATIENCE: 10
